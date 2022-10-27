@@ -34,3 +34,8 @@ repos:
       - id: mypy
         pass_filenames: false
         args: []
+
+  - repo: https://github.com/KenjiTakahashi-Rial/check-requirements
+    rev: 36e15709937772dd6955b213376764e674006040
+    hooks:
+      - id: check-requirements
