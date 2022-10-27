@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+
+import subprocess
+import sys
+
+
+def main(argv: list[str]) -> int:
+    if len(argv) != 1:
+        print("Must have one argument, the path to requirements.txt")
+        return 1
+
+    path = argv[0]
+    with open(path, "r") as f:
+        requirements = f.read()
+
+    args = [sys.executable, "-m", "pip", "freeze"]
+    process = subprocess.run(args, capture_output=True, check=True)
+    freeze = process.stdout.decode()
+
+    req_list = requirements.split("\n")
+    frz_list = freeze.split("\n")
+    for req, frz in zip(req_list, frz_list):
+        if req != frz:
+            print(f"Mismatch:\n\tpip freeze has {frz}\n\trequirements.txt has {req}")
+            return 1
+
+    print("Success: requirements.txt matches pip freeze")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
