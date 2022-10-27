@@ -1,7 +1,7 @@
 - id: check-requirements
   name: Check requirements.txt
-  entry: scripts/hooks/check_requirements
-  language: python
+  entry: check_requirements
+  language: script
   always_run: true
   pass_filenames: false
   description: Checks the contents of requirements.txt against the output of "pip freeze"
